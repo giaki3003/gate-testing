@@ -218,6 +218,8 @@ static UniValue getmininginfo(const JSONRPCRequest& request)
 
 
     LOCK(cs_main);
+    std::string NetStr = "main";
+
 
     UniValue obj(UniValue::VOBJ);
     obj.pushKV("blocks",           (int)chainActive.Height());
@@ -226,7 +228,7 @@ static UniValue getmininginfo(const JSONRPCRequest& request)
     obj.pushKV("difficulty",       (double)GetDifficulty(chainActive.Tip()));
     obj.pushKV("networkhashps",    getnetworkhashps(request));
     obj.pushKV("pooledtx",         (uint64_t)mempool.size());
-    obj.pushKV("chain",            Params().NetworkIDString());
+    obj.pushKV("chain",            NetStr);
     obj.pushKV("warnings",         GetWarnings("statusbar"));
     return obj;
 }
